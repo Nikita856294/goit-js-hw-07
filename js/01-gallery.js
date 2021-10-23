@@ -36,15 +36,7 @@ function openModal(event) {
     {
       onShow: (instance) => {
         instance.element().querySelector("img").onclick = instance.close;
-        function closeModalKey(event) {
-          if (event.code === "Escape") {
-            instance.close();
-            return;
-          }
-          window.addEventListener("keydown", closeModalKey);
-        }
       },
-      onClose: (instance) => {},
     }
   );
 
