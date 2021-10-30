@@ -23,13 +23,14 @@ function createGallery(images) {
 galleryRef.insertAdjacentHTML("beforeend", galleryMarkup);
 
 galleryRef.addEventListener("click", openModal);
-
+let instance = null;
 function openModal(event) {
   event.preventDefault();
   const eventTarget = event.target;
   const sourceUrl = eventTarget.dataset.source;
   console.log(sourceUrl);
-  const instance = basicLightbox.create(
+  window.addEventListener("keydown", onEscClose);
+  instance = basicLightbox.create(
     `
     <img src="${sourceUrl}" width="800" height="600">
 `,
@@ -43,4 +44,11 @@ function openModal(event) {
   instance.show();
 }
 
+function onEscClose(event) {
+  if (event.code === "Escape") {
+    instance.close();
+    window.removeEventListener("keydown", onEscClose);
+    return;
+  }
+}
 // galleryRef.addEventListener("click", openModal);
